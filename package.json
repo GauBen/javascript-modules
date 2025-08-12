@@ -2,14 +2,6 @@
   "name": "javascript-modules-monorepo",
   "private": true,
   "type": "module",
-  "workspaces": [
-    "javascript-create-module",
-    "javascript-modules-engine",
-    "jahia-test-module",
-    "javascript-modules-library",
-    "samples/hydrogen",
-    "vite-plugin"
-  ],
   "scripts": {
     "format": "prettier --write --list-different $INIT_CWD",
     "lint": "eslint $INIT_CWD"
