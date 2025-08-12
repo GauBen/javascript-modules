@@ -1,6 +1,0 @@
-- installBundle:
-    - "mvn:org.jahia.modules/legacy-default-components"
-    - "mvn:org.jahia.modules/calendar"
-    - "mvn:org.jahia.modules/event"
-  autoStart: true
-  uninstallPreviousVersion: true

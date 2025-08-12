@@ -1,6 +1,0 @@
-{
-  "greeting": "Hallo !",
-  "test": {
-    "composed": "Dies ist eine zusammengesetzte Zeichenfolge: {{placeholder}}"
-  }
-}

@@ -1,3 +1,0 @@
-[hydrogen:helloWorld] > jnt:content, hydrogenmix:component orderable
- - name (string) i18n mandatory
- + * (hydrogen:helloCard) = hydrogen:helloCard
