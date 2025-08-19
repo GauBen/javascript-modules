@@ -7,7 +7,6 @@
     "lint": "eslint $INIT_CWD"
   },
   "dependencies": {
-    "cookie-es": "^2.0.0",
     "rehype-stringify": "^10.0.1",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",

@@ -1,6 +1,4 @@
-import { parseSetCookie } from "cookie-es";
 import type { Root } from "hast";
-import assert from "node:assert";
 import { inspect } from "node:util";
 import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
@@ -8,24 +6,6 @@ import remarkRehype from "remark-rehype";
 import { read } from "to-vfile";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
-
-const response = await fetch("https://academy.jahia.com/cms/login?restMode=true", {
-  method: "POST",
-  headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  body: new URLSearchParams({
-    username: "gbenaim@jahia.com",
-    password: process.env.PASSWORD!,
-    useCookie: "on",
-  }),
-});
-
-assert.ok(response.ok);
-
-const text = await response.text();
-
-assert.equal(text, "OK");
-
-const cookies = response.headers.getSetCookie().map((str) => parseSetCookie(str));
 
 const jcrPath =
   "/sites/academy/home/get-started/front-end-developer/setting-up-your-dev-environment/document-area/setting-up-your-dev-environment";
@@ -58,16 +38,16 @@ const file = await unified()
 const html = String(file);
 console.log(html);
 
-const response2 = await fetch("https://academy.jahia.com/modules/graphql", {
+const response = await fetch("https://academy.jahia.com/modules/graphql", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    "Cookie": cookies.map((cookie) => `${cookie.name}=${cookie.value}`).join("; "),
     "Referer": "https://academy.jahia.com",
+    "Authorization": `Basic ${Buffer.from(`gbenaim@jahia.com:${process.env.PASSWORD!}`).toString("base64")}`,
   },
   body: JSON.stringify({
     query: /* GraphQL */ `
-      mutation ($path: String!, $value: String!) {
+      mutation ($path: String!, $value: String!, $publish: Boolean!) {
         edit: jcr(workspace: EDIT) {
           mutateNode(pathOrId: $path) {
             mutateProperty(name: "textContent") {
@@ -75,18 +55,19 @@ const response2 = await fetch("https://academy.jahia.com/modules/graphql", {
             }
           }
         }
-        # publish: jcr(workspace: EDIT) {
-        #   mutateNode(pathOrId: $path) {
-        #     publish(languages: ["en"])
-        #   }
-        # }
+        publish: jcr(workspace: EDIT) {
+          mutateNode(pathOrId: $path) {
+            publish(languages: ["en"])
+          }
+        } @include(if: $publish)
       }
     `,
     variables: {
       path: jcrPath,
       value: html,
+      publish: false,
     },
   }),
 });
 
-console.log(inspect(await response2.json(), { depth: Infinity, colors: true }));
+console.log(inspect(await response.json(), { depth: Infinity, colors: true }));
