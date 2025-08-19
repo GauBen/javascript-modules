@@ -10,5 +10,5 @@ jobs:
       - uses: Jahia/github-to-academy@v1
         with:
           files: docs/**/*.md
-          graphql-endpoint: todo
-          graphql-authorization: todo
+          graphql-endpoint: https://academy.jahia.com/modules/graphql
+          graphql-authorization: ${{ secrets.GQL_AUTH }}
