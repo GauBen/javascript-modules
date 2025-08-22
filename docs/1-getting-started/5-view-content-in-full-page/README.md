@@ -1,4 +1,11 @@
-# View Content in Full Page
+---
+page:
+  $path: /sites/academy/home/get-started/front-end-developer/view-content-in-full-page
+  "jcr:title": View Content in Full Page
+  "j:templateName": documentation
+content:
+  $subpath: document-area/content
+---
 
 The goal of this section is to render a full-page view of a content node. We'll continue with our blog example, and instead of a 404 page, we'll create a page to display a single blog post.
 
