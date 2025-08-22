@@ -99,3 +99,5 @@ Now that your _template set_ (that's how we call a module that provides page tem
    ![Page Builder interface](page-builder.png)
 
 Congratulations! You have successfully set up your development environment and created a new project in Jahia. In the next sections, we'll start building the project.
+
+Next: [Making a Hero Section](../making-a-hero-section/)
